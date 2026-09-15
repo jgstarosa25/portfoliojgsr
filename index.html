@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jan Gerald Sta. Rosa — Senior WordPress Support Engineer & Systems Specialist</title>
+<meta name="description" content="Portfolio of Jan Gerald Sta. Rosa — Senior WordPress Support Engineer & Systems Specialist. Backend performance, incident management, accessibility, and technical SEO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1621;
+    --surface: #161F2E;
+    --border: #2A3648;
+    --text: #E7ECF3;
+    --text-dim: #8A97AC;
+    --accent: #E3A857;
+    --accent-dim: #B8863F;
+    --green: #4ADE80;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  /* ---------- SCROLL PROGRESS ---------- */
+  #scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--accent);
+    z-index: 50;
+    transition: width 0.08s linear;
+  }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(15, 22, 33, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .nav-name {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .nav-links a { color: var(--text-dim); }
+  .nav-links a:hover { color: var(--accent); text-decoration: none; }
+  .nav-resume {
+    font-family: var(--mono);
+    font-size: 13px;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .nav-resume:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero {
+    padding: 64px 0 40px;
+  }
+  .eyebrow-status {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--green);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    border: 1px solid #1F3A2C;
+    background: #10201A;
+    padding: 5px 12px;
+    border-radius: 4px;
+  }
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .role {
+    font-family: var(--sans);
+    font-size: 18px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    max-width: 560px;
+  }
+
+  /* terminal panel */
+  .terminal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal-bar span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #364256;
+  }
+  .terminal-title {
+    margin-left: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .terminal-body {
+    padding: 20px 22px 26px;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.8;
+    min-height: 168px;
+  }
+  .terminal-body .prompt { color: var(--accent); }
+  .terminal-body .comment { color: var(--text-dim); }
+  .terminal-body .out { color: var(--text); }
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* stat strip */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .stat {
+    background: var(--surface);
+    padding: 16px 14px;
+  }
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 20px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .stat-label {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section {
+    padding: 56px 0;
+    border-top: 1px solid var(--border);
+  }
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .about-text {
+    max-width: 680px;
+    color: var(--text-dim);
+    font-size: 16px;
+  }
+  .about-text + .about-text { margin-top: 14px; }
+
+  /* skills modules */
+  .modules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 640px) {
+    .modules { grid-template-columns: 1fr; }
+  }
+  .module {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+    background: var(--surface);
+  }
+  .module h3 {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .module p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.65;
+  }
+
+  /* experience changelog */
+  .job {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .job:last-child { border-bottom: none; }
+  .job-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .job-title {
+    font-family: var(--mono);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .job-meta {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-top: 2px;
+    margin-bottom: 12px;
+  }
+  .job-log {
+    list-style: none;
+  }
+  .job-log li {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--text-dim);
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 7px;
+    line-height: 1.6;
+  }
+  .job-log li::before {
+    content: "+";
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* education */
+  .edu-block {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 22px;
+    background: var(--surface);
+  }
+  .edu-school {
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .edu-meta {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin: 3px 0 10px;
+  }
+  .edu-block p {
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  /* contact / footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 56px 0 64px;
+  }
+  .contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .contact-link {
+    font-family: var(--mono);
+    font-size: 14px;
+    border: 1px solid var(--border);
+    padding: 10px 16px;
+    border-radius: 4px;
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .footer-note {
+    margin-top: 32px;
+    font-size: 13px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+  }
+</style>
+</head>
+<body>
+
+<div id="scrollProgress"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-name"><span class="status-dot"></span>jgsr.dev</div>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#experience">experience</a>
+      <a href="#contact">contact</a>
+    </div>
+    <a class="nav-resume" href="./resume.pdf" download>Resume ↓</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow-status"><span class="status-dot"></span>Available for remote roles</div>
+    <h1>Jan Gerald Sta. Rosa</h1>
+    <p class="role">Senior WordPress Support Engineer & Systems Specialist — keeping high-stakes WordPress platforms fast, secure, and online.</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span></span><span></span><span></span>
+        <span class="terminal-title">jgsr@systems — intro.sh</span>
+      </div>
+      <div class="terminal-body" id="termBody"></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-value" data-count="10" data-suffix="+ yrs">0</div><div class="stat-label">WordPress systems</div></div>
+      <div class="stat"><div class="stat-value" data-count="30" data-prefix="&lt;" data-suffix=" min">0</div><div class="stat-label">First response time</div></div>
+      <div class="stat"><div class="stat-value" data-count="10" data-prefix="+" data-suffix="%">0</div><div class="stat-label">CSAT improvement</div></div>
+      <div class="stat"><div class="stat-value" data-count="2" data-suffix="M+">0</div><div class="stat-label">Installs supported</div></div>
+    </div>
+  </header>
+
+  <section id="about" class="reveal">
+    <div class="section-tag">// about</div>
+    <h2>Summary</h2>
+    <p class="about-text">Senior WordPress Support Engineer & Infrastructure Specialist with 10+ years managing high-stakes SaaS environments, enterprise plugin ecosystems, web accessibility compliance, and agency infrastructure.</p>
+    <p class="about-text">I optimize backend performance — Redis caching, MySQL query tuning — to keep platforms stable and online through high-concurrency seasonal surges, and lead code-level debugging (PHP/JS) using Claude Code alongside Git/GitHub CI/CD pipelines. I also handle ADA/WCAG accessibility remediation (Axe/WAVE) and CRM platform administration (Perfex).</p>
+    <p class="about-text">Most recently, I've driven support desk operations to under 30 minutes first-response time while lifting CSAT by 10%, across VIP escalation queues on a 2M+ install product base.</p>
+  </section>
+
+  <section id="skills">
+    <div class="section-tag">// system modules</div>
+    <h2>Core Technical Skills</h2>
+    <div class="modules">
+      <div class="module reveal" style="transition-delay: 0ms">
+        <h3>Backend & Code-Level Debugging</h3>
+        <p>PHP, JavaScript (ES6+), HTML5, CSS3, SQL (MySQL), REST APIs, WordPress Hooks/Actions/Filters.</p>
+      </div>
+      <div class="module reveal" style="transition-delay: 60ms">
+        <h3>Performance & Infrastructure</h3>
+        <p>MySQL query optimization, Redis/Memcached object caching, PHP execution limits, server-side tuning, Core Web Vitals.</p>
+      </div>
+      <div class="module reveal" style="transition-delay: 120ms">
+        <h3>AI-Assisted Workflows</h3>
+        <p>AI-assisted debugging, root-cause code analysis, and automated patch creation using Claude Code.</p>
+      </div>
+      <div class="module reveal" style="transition-delay: 180ms">
+        <h3>Version Control & DevOps</h3>
+        <p>Git, GitHub issue tracking, staging-to-production deployment pipelines, CI/CD workflows, environment sync.</p>
+      </div>
+      <div class="module reveal" style="transition-delay: 0ms">
+        <h3>Technical SEO & Architecture</h3>
+        <p>Schema markup, canonicalization, Google Business Profile integration, conversion-focused landing pages, crawlability.</p>
+      </div>
+      <div class="module reveal" style="transition-delay: 60ms">
+        <h3>Accessibility & Compliance</h3>
+        <p>ADA/WCAG compliance via Axe & WAVE audits, Screaming Frog SEO crawls, Core Web Vitals, schema markup.</p>
+      </div>
+      <div class="module reveal" style="transition-delay: 120ms">
+        <h3>Ecosystem Specialization</h3>
+        <p>Astra Theme, WooCommerce, Elementor, Spectra, MemberSplash SaaS, Google Ads landing pages, payment gateways.</p>
+      </div>
+      <div class="module reveal" style="transition-delay: 180ms">
+        <h3>Operations & Leadership</h3>
+        <p>High-concurrency incident management, Tier 2/3 escalation handling, SOP authorship, Loom-based team training.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-tag">// changelog</div>
+    <h2>Professional Experience</h2>
+
+    <div class="job reveal">
+      <span class="job-tag">BUILD 2026</span>
+      <div class="job-title">Web Development & Accessibility Specialist</div>
+      <div class="job-meta">Adfluens LLC · Latin America · Part-time</div>
+      <ul class="job-log">
+        <li>ADA/WCAG accessibility audits using Axe and WAVE; refactored PHP, HTML, and CSS for compliance</li>
+        <li>Managed and customized Perfex CRM for client onboarding and task automation</li>
+        <li>Built and maintained WordPress sites using Elementor and Beaver Builder with custom PHP snippets</li>
+        <li>Implemented AI automation workflows; ran full-site technical SEO audits with Screaming Frog</li>
+      </ul>
+    </div>
+
+    <div class="job reveal">
+      <span class="job-tag">BUILD 2024–2025</span>
+      <div class="job-title">DevOps Engineer Specialist</div>
+      <div class="job-meta">MemberSplash · California, USA · Full-time</div>
+      <ul class="job-log">
+        <li>Resolved Tier 2/3 tickets for custom membership software and POS check-in gate systems</li>
+        <li>Optimized MySQL queries, PHP memory limits, and caching to hold uptime during registration surges</li>
+        <li>Diagnosed and patched PHP, database, and payment gateway integration bugs</li>
+        <li>Ran staging-to-production deployments via Git/CI-CD, minimizing downtime on releases</li>
+        <li>Authored internal SOPs and root-cause logs to streamline support-to-engineering escalation</li>
+      </ul>
+    </div>
+
+    <div class="job reveal">
+      <span class="job-tag">BUILD 2020–2024</span>
+      <div class="job-title">WordPress Senior Technical Support</div>
+      <div class="job-meta">WP Astra · Pune, India · Full-time</div>
+      <ul class="job-log">
+        <li>Cut first response time to under 30 minutes while lifting CSAT by 10% across high-volume queues</li>
+        <li>Managed VIP escalations via Help Scout and Zendesk with fast resolution on critical site breaks</li>
+        <li>Isolated theme/plugin conflicts through code-level debugging, using Claude Code to generate and test patches</li>
+        <li>Reproduced complex bugs in staging and filed structured root-cause reports on GitHub</li>
+        <li>Authored technical SOPs and Loom screencasts to train junior support staff</li>
+      </ul>
+    </div>
+
+    <div class="job reveal">
+      <span class="job-tag">BUILD 2019–2020</span>
+      <div class="job-title">WordPress Developer & Technical SEO Specialist</div>
+      <div class="job-meta">Serp.co · USA · Full-time</div>
+      <ul class="job-log">
+        <li>Built and maintained custom, responsive WordPress sites aligned to lead-generation goals</li>
+        <li>Executed schema/structured data, canonicalization, and Core Web Vitals improvements</li>
+        <li>Optimized geographic service pages to support Google Business Profile map-pack visibility</li>
+        <li>Built high-speed, mobile-optimized landing pages integrated with Google Ads to cut cost per lead</li>
+        <li>Ran site audits, resolved plugin conflicts, applied security patches across client environments</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-tag">// education</div>
+    <h2>Education</h2>
+    <div class="edu-block reveal">
+      <div class="edu-school">La Consolacion Sta Maria</div>
+      <div class="edu-meta">Bulacan, Philippines · 2012 – 2016</div>
+      <p>Improved logistical, administrative, and academic processes by leveraging Information Systems to enhance efficiency, transparency, and operational effectiveness.</p>
+    </div>
+  </section>
+
+  <footer id="contact" class="reveal">
+    <div class="section-tag">// contact</div>
+    <h2>Get in touch</h2>
+    <p class="about-text">Open to remote WordPress systems, support engineering, and technical operations roles.</p>
+    <div class="contact-grid">
+      <a class="contact-link" href="mailto:Geraldstarosa29@gmail.com">Geraldstarosa29@gmail.com</a>
+      <a class="contact-link" href="tel:+639195015396">09195015396</a>
+      <a class="contact-link" href="https://ph.linkedin.com/in/jan-gerald-starosa-60ba56183" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="contact-link" href="./resume.pdf" download>Download Resume</a>
+    </div>
+    <p class="footer-note">Built with plain HTML/CSS/JS. Last updated September 2026.</p>
+  </footer>
+</div>
+
+<script>
+  const lines = [
+    { type: 'prompt', text: '$ whoami' },
+    { type: 'out', text: 'Jan Gerald Sta. Rosa — Senior WordPress Support Engineer & Systems Specialist' },
+    { type: 'prompt', text: '$ uptime --history' },
+    { type: 'out', text: '10+ years maintaining high-concurrency WordPress platforms with zero downtime.' },
+    { type: 'prompt', text: '$ cat mission.txt' },
+    { type: 'out', text: 'Keep the platform fast, secure, and online. Fix the root cause, not the symptom.' },
+  ];
+
+  const el = document.getElementById('termBody');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderStatic() {
+    el.innerHTML = lines.map(l =>
+      `<div class="${l.type === 'prompt' ? 'prompt' : 'out'}">${l.text}</div>`
+    ).join('');
+  }
+
+  if (reduceMotion) {
+    renderStatic();
+  } else {
+    let lineIndex = 0;
+    let charIndex = 0;
+    const container = document.createElement('div');
+    el.appendChild(container);
+
+    function typeNext() {
+      if (lineIndex >= lines.length) {
+        const cur = document.createElement('span');
+        cur.className = 'cursor';
+        container.appendChild(cur);
+        return;
+      }
+      const line = lines[lineIndex];
+      if (charIndex === 0) {
+        const div = document.createElement('div');
+        div.className = line.type === 'prompt' ? 'prompt' : 'out';
+        div.id = 'typingLine';
+        container.appendChild(div);
+      }
+      const activeDiv = document.getElementById('typingLine');
+      if (charIndex <= line.text.length) {
+        activeDiv.textContent = line.text.slice(0, charIndex);
+        charIndex++;
+        setTimeout(typeNext, line.type === 'prompt' ? 28 : 12);
+      } else {
+        activeDiv.removeAttribute('id');
+        lineIndex++;
+        charIndex = 0;
+        setTimeout(typeNext, line.type === 'prompt' ? 180 : 320);
+      }
+    }
+    typeNext();
+  }
+
+  // ---------- Scroll progress bar ----------
+  const progressBar = document.getElementById('scrollProgress');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  if (reduceMotion) {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  } else if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  // ---------- Count-up stats ----------
+  const statEls = document.querySelectorAll('.stat-value[data-count]');
+  function animateCount(el) {
+    const target = parseInt(el.getAttribute('data-count'), 10);
+    const prefix = el.getAttribute('data-prefix') || '';
+    const suffix = el.getAttribute('data-suffix') || '';
+    if (reduceMotion) {
+      el.textContent = prefix + target + suffix;
+      return;
+    }
+    const duration = 900;
+    const start = performance.now();
+    function frame(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(eased * target);
+      el.textContent = prefix + value + suffix;
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  if ('IntersectionObserver' in window) {
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    statEls.forEach(el => statObserver.observe(el));
+  } else {
+    statEls.forEach(animateCount);
+  }
+</script>
+
+</body>
+</html>
