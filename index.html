@@ -12,7 +12,7 @@
   <style>
     :root {
       --bg: #0a0c10;
-      --card-bg: #12151e;
+      --card-bg: rgba(18, 21, 30, 0.85);
       --border: #1e2433;
       --accent: #3b82f6;
       --text: #e2e8f0;
@@ -22,23 +22,32 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background-color: var(--bg) !important;
-      color: var(--text) !important;
-      font-family: 'JetBrains Mono', monospace !important;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
       line-height: 1.6;
       overflow-x: hidden;
-      transition: background-color 0.5s ease;
+      transition: background-color 0.8s ease;
     }
 
     .main-wrapper { max-width: 850px; margin: 0 auto; padding: 0 20px; }
 
-    /* Navigation */
+    /* Sticky Navigation */
     nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 25px 0;
+      padding: 20px 0;
+      background: rgba(10, 12, 16, 0.8);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       margin-bottom: 50px;
     }
@@ -46,12 +55,16 @@
     .brand { font-weight: bold; color: #fff; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
     .brand-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; }
 
-    .nav-links a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: color 0.3s; }
     .nav-links a:hover { color: var(--accent); }
     .btn-resume { border: 1px solid var(--accent); color: var(--accent) !important; padding: 6px 14px; border-radius: 4px; }
 
-    /* Hero */
-    header { margin-bottom: 60px; }
+    /* Sections Container */
+    section, header, footer {
+      padding: 60px 0;
+      min-height: 50vh;
+    }
+
     .badge { color: var(--green); font-size: 0.85rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
     .badge-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
 
@@ -65,6 +78,7 @@
       border-radius: 8px;
       overflow: hidden;
       margin-bottom: 35px;
+      backdrop-filter: blur(5px);
     }
 
     .terminal-header {
@@ -93,6 +107,7 @@
       border: 1px solid var(--border);
       padding: 20px;
       border-radius: 8px;
+      backdrop-filter: blur(5px);
     }
 
     .stat-number { font-size: 1.5rem; font-weight: bold; color: #fff; }
@@ -102,63 +117,30 @@
     .skill-card h3 { color: var(--accent); font-size: 0.95rem; margin-bottom: 8px; }
     .skill-card p { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
 
-    /* Sections */
-    section { margin-bottom: 60px; }
     .section-tag { color: var(--accent); font-size: 0.85rem; margin-bottom: 5px; }
     h2 { font-size: 1.5rem; color: #fff; margin-bottom: 20px; }
-
     .summary-text { color: var(--muted); font-size: 0.92rem; margin-bottom: 15px; }
 
-    /* PINNED HORIZONTAL EXPERIENCE SLIDER WITH BACKGROUND TRANSITION */
-    .experience-pinned-wrapper {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      transition: background-color 0.6s ease;
-    }
-
-    .slider-title-wrapper {
-      max-width: 850px;
-      margin: 0 auto 30px;
-      width: 100%;
-      padding: 0 20px;
-    }
-
-    .experience-slider {
-      display: flex;
-      gap: 30px;
-      padding-left: calc((100vw - 850px) / 2 + 20px);
-      width: max-content;
-    }
-
-    @media (max-width: 890px) {
-      .experience-slider { padding-left: 20px; }
-    }
-
-    .experience-slide {
-      width: 550px;
-      max-width: 85vw;
+    /* Timeline / Experience */
+    .timeline-item {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 30px;
-      flex-shrink: 0;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border-left: 4px solid var(--accent);
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(5px);
     }
 
-    .slide-tag { color: var(--accent); font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; }
-    .slide-title { color: #fff; font-size: 1.2rem; font-weight: bold; margin-bottom: 4px; }
-    .slide-company { color: var(--muted); font-size: 0.9rem; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    .timeline-tag { color: var(--accent); font-size: 0.8rem; font-weight: bold; }
+    .job-title { color: #fff; font-size: 1.1rem; font-weight: bold; margin: 3px 0; }
+    .job-company { color: var(--muted); font-size: 0.85rem; margin-bottom: 12px; }
 
     ul { margin-left: 18px; color: var(--muted); font-size: 0.85rem; }
-    li { margin-bottom: 8px; }
+    li { margin-bottom: 6px; }
 
     /* Footer */
-    footer { border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 40px; }
+    footer { border-top: 1px solid var(--border); }
     .contact-links { display: flex; flex-wrap: wrap; gap: 15px; margin: 20px 0; }
     .contact-links a {
       color: var(--accent);
@@ -179,9 +161,10 @@
 <body>
 
   <div class="main-wrapper">
-    <nav class="gsap-nav">
+    <nav>
       <div class="brand"><span class="brand-dot"></span>jgsr.dev</div>
       <div class="nav-links">
+        <a href="#hero">home</a>
         <a href="#about">about</a>
         <a href="#skills">skills</a>
         <a href="#experience">experience</a>
@@ -190,7 +173,8 @@
       </div>
     </nav>
 
-    <header>
+    <!-- HEADER / HERO (COLOR: DEFAULT DARK) -->
+    <header id="hero" class="color-section" data-bg="#0a0c10">
       <div class="badge gsap-hero"><span class="badge-dot"></span>Available for remote roles</div>
       <h1 class="gsap-hero">Jan Gerald Sta. Rosa</h1>
       <p class="hero-sub gsap-hero">Senior WordPress Support Engineer & Systems Specialist — keeping high-stakes WordPress platforms fast, secure, and online.</p>
@@ -225,101 +209,77 @@
       </div>
     </header>
 
-    <section id="about" class="gsap-section">
+    <!-- ABOUT SECTION (COLOR: NAVY BLUE) -->
+    <section id="about" class="color-section gsap-section" data-bg="#0d1b2a">
       <div class="section-tag">// about</div>
       <h2>Summary</h2>
       <p class="summary-text">Senior WordPress Support Engineer & Infrastructure Specialist with 10+ years managing high-stakes SaaS environments, enterprise plugin ecosystems, web accessibility compliance, and agency infrastructure.</p>
       <p class="summary-text">I optimize backend performance — Redis caching, MySQL query tuning — to keep platforms stable through high-concurrency seasonal surges, and lead code-level debugging (PHP/JS) using Claude Code alongside Git/GitHub CI/CD pipelines.</p>
     </section>
 
-    <section id="skills" class="gsap-section">
+    <!-- SKILLS SECTION (COLOR: DARK TEAL) -->
+    <section id="skills" class="color-section gsap-section" data-bg="#0f2027">
       <div class="section-tag">// system modules</div>
       <h2>Core Technical Skills</h2>
       <div class="skills-grid">
-        <div class="card skill-card gsap-skill">
+        <div class="card skill-card">
           <h3>Backend & Code Debugging</h3>
           <p>PHP, JavaScript (ES6+), HTML5, CSS3, SQL (MySQL), REST APIs, WordPress Hooks/Actions/Filters.</p>
         </div>
-        <div class="card skill-card gsap-skill">
+        <div class="card skill-card">
           <h3>Performance & Infrastructure</h3>
           <p>MySQL query optimization, Redis/Memcached object caching, PHP execution limits, server tuning, Core Web Vitals.</p>
         </div>
-        <div class="card skill-card gsap-skill">
+        <div class="card skill-card">
           <h3>AI-Assisted Workflows</h3>
           <p>AI-assisted debugging, root-cause code analysis, and automated patch creation using Claude Code.</p>
         </div>
-        <div class="card skill-card gsap-skill">
+        <div class="card skill-card">
           <h3>DevOps & Version Control</h3>
           <p>Git, GitHub issue tracking, staging-to-production deployment pipelines, CI/CD workflows.</p>
         </div>
       </div>
     </section>
-  </div>
 
-  <!-- PINNED HORIZONTAL EXPERIENCE SLIDER WITH DYNAMIC BACKGROUNDS -->
-  <div id="experience" class="experience-pinned-wrapper">
-    <div class="slider-title-wrapper">
+    <!-- EXPERIENCE SECTION (COLOR: DEEP PURPLE) -->
+    <section id="experience" class="color-section gsap-section" data-bg="#1a0933">
       <div class="section-tag">// changelog</div>
-      <h2>Professional Experience (Scroll Down)</h2>
-    </div>
+      <h2>Professional Experience</h2>
 
-    <div class="experience-slider" id="experienceSlider">
-      <!-- SLIDE 1 (Navy Blue) -->
-      <div class="experience-slide" data-bg="#0d1b2a">
-        <div class="slide-tag">BUILD 2026</div>
-        <div class="slide-title">Web Development & Accessibility Specialist</div>
-        <div class="slide-company">Adfluens LLC · Part-time</div>
+      <div class="timeline-item">
+        <span class="timeline-tag">BUILD 2026</span>
+        <div class="job-title">Web Development & Accessibility Specialist</div>
+        <div class="job-company">Adfluens LLC · Part-time</div>
         <ul>
           <li>ADA/WCAG accessibility audits using Axe and WAVE; refactored PHP, HTML, and CSS for compliance</li>
           <li>Managed and customized Perfex CRM for client onboarding and task automation</li>
           <li>Built and maintained WordPress sites using Elementor and Beaver Builder with custom PHP snippets</li>
-          <li>Implemented AI automation workflows; ran full-site technical SEO audits with Screaming Frog</li>
         </ul>
       </div>
 
-      <!-- SLIDE 2 (Dark Teal) -->
-      <div class="experience-slide" data-bg="#0f2027">
-        <div class="slide-tag">BUILD 2024–2025</div>
-        <div class="slide-title">DevOps Engineer Specialist</div>
-        <div class="slide-company">MemberSplash · California, USA · Full-time</div>
+      <div class="timeline-item">
+        <span class="timeline-tag">BUILD 2024–2025</span>
+        <div class="job-title">DevOps Engineer Specialist</div>
+        <div class="job-company">MemberSplash · California, USA · Full-time</div>
         <ul>
           <li>Resolved Tier 2/3 tickets for custom membership software and POS check-in gate systems</li>
           <li>Optimized MySQL queries, PHP memory limits, and caching to hold uptime during registration surges</li>
-          <li>Diagnosed and patched PHP, database, and payment gateway integration bugs</li>
-          <li>Ran staging-to-production deployments via Git/CI-CD, minimizing downtime on releases</li>
         </ul>
       </div>
 
-      <!-- SLIDE 3 (Deep Purple) -->
-      <div class="experience-slide" data-bg="#1a0933">
-        <div class="slide-tag">BUILD 2020–2024</div>
-        <div class="slide-title">WordPress Senior Technical Support</div>
-        <div class="slide-company">WP Astra · Pune, India · Full-time</div>
+      <div class="timeline-item">
+        <span class="timeline-tag">BUILD 2020–2024</span>
+        <div class="job-title">WordPress Senior Technical Support</div>
+        <div class="job-company">WP Astra · Pune, India · Full-time</div>
         <ul>
           <li>Cut first response time to under 30 minutes while lifting CSAT by 10% across high-volume queues</li>
-          <li>Managed VIP escalations via Help Scout and Zendesk with fast resolution on critical site breaks</li>
           <li>Isolated theme/plugin conflicts through code-level debugging, using Claude Code to test patches</li>
-          <li>Reproduced complex bugs in staging and filed structured root-cause reports on GitHub</li>
         </ul>
       </div>
+    </section>
 
-      <!-- SLIDE 4 (Dark Emerald) -->
-      <div class="experience-slide" data-bg="#0a251c">
-        <div class="slide-tag">BUILD 2019–2020</div>
-        <div class="slide-title">WordPress Developer & Technical SEO Specialist</div>
-        <div class="slide-company">Serp.co · USA · Full-time</div>
-        <ul>
-          <li>Built and maintained custom, responsive WordPress sites aligned to lead-generation goals</li>
-          <li>Executed schema/structured data, canonicalization, and Core Web Vitals improvements</li>
-          <li>Optimized geographic service pages to support Google Business Profile map-pack visibility</li>
-          <li>Built high-speed, mobile-optimized landing pages integrated with Google Ads to cut CPL</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="main-wrapper">
-    <footer id="contact" class="gsap-section">
+    <!-- CONTACT SECTION (COLOR: DARK EMERALD) -->
+    <footer id="contact" class="color-section gsap-section" data-bg="#0a251c">
       <div class="section-tag">// contact</div>
       <h2>Get in touch</h2>
       <p class="summary-text">Open to remote WordPress systems, support engineering, and technical operations roles.</p>
@@ -358,38 +318,18 @@
         });
       });
 
-      // PINNED HORIZONTAL SLIDER WITH SLIDE-BASED BACKGROUND TRANSITIONS
-      const slider = document.getElementById("experienceSlider");
-      const slides = gsap.utils.toArray(".experience-slide");
-      const wrapper = document.querySelector(".experience-pinned-wrapper");
+      // SECTION BACKGROUND COLOR SWITCHER (Per Anchor / Section)
+      const colorSections = gsap.utils.toArray(".color-section");
 
-      // Horizontal scroll movement
-      gsap.to(slider, {
-        x: () => -(slider.scrollWidth - window.innerWidth + 40),
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#experience",
-          start: "top top",
-          end: () => "+=" + slider.scrollWidth,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true
-        }
-      });
-
-      // Background color animation per slide
-      slides.forEach((slide) => {
-        const bgHex = slide.getAttribute("data-bg");
+      colorSections.forEach((section) => {
+        const bgHex = section.getAttribute("data-bg");
 
         ScrollTrigger.create({
-          trigger: slide,
-          containerAnimation: gsap.getTweensOf(slider)[0],
-          start: "left center",
-          end: "right center",
-          onEnter: () => gsap.to(wrapper, { backgroundColor: bgHex, duration: 0.6 }),
-          onEnterBack: () => gsap.to(wrapper, { backgroundColor: bgHex, duration: 0.6 }),
-          onLeave: () => gsap.to(wrapper, { backgroundColor: "#0a0c10", duration: 0.6 }),
-          onLeaveBack: () => gsap.to(wrapper, { backgroundColor: "#0a0c10", duration: 0.6 })
+          trigger: section,
+          start: "top 50%",
+          end: "bottom 50%",
+          onEnter: () => gsap.to("body", { backgroundColor: bgHex, duration: 0.8 }),
+          onEnterBack: () => gsap.to("body", { backgroundColor: bgHex, duration: 0.8 })
         });
       });
     });
