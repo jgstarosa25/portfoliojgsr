@@ -28,6 +28,7 @@
       font-family: 'JetBrains Mono', monospace !important;
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background-color 0.5s ease;
     }
 
     .main-wrapper { max-width: 850px; margin: 0 auto; padding: 0 20px; }
@@ -108,7 +109,7 @@
 
     .summary-text { color: var(--muted); font-size: 0.92rem; margin-bottom: 15px; }
 
-    /* PINNED HORIZONTAL EXPERIENCE SLIDER */
+    /* PINNED HORIZONTAL EXPERIENCE SLIDER WITH BACKGROUND TRANSITION */
     .experience-pinned-wrapper {
       position: relative;
       width: 100%;
@@ -117,6 +118,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      transition: background-color 0.6s ease;
     }
 
     .slider-title-wrapper {
@@ -191,7 +193,7 @@
     <header>
       <div class="badge gsap-hero"><span class="badge-dot"></span>Available for remote roles</div>
       <h1 class="gsap-hero">Jan Gerald Sta. Rosa</h1>
-      <p class="hero-sub gsap-hero">Senior WordPress Support Engineer & Systems Specialist - keeping high-stakes WordPress platforms fast, secure, and online.</p>
+      <p class="hero-sub gsap-hero">Senior WordPress Support Engineer & Systems Specialist — keeping high-stakes WordPress platforms fast, secure, and online.</p>
 
       <div class="terminal-box gsap-hero">
         <div class="terminal-header">
@@ -227,7 +229,7 @@
       <div class="section-tag">// about</div>
       <h2>Summary</h2>
       <p class="summary-text">Senior WordPress Support Engineer & Infrastructure Specialist with 10+ years managing high-stakes SaaS environments, enterprise plugin ecosystems, web accessibility compliance, and agency infrastructure.</p>
-      <p class="summary-text">I optimize backend performance, Redis caching, MySQL query tuning, to keep platforms stable through high-concurrency seasonal surges, and lead code-level debugging (PHP/JS) using Claude Code alongside Git/GitHub CI/CD pipelines.</p>
+      <p class="summary-text">I optimize backend performance — Redis caching, MySQL query tuning — to keep platforms stable through high-concurrency seasonal surges, and lead code-level debugging (PHP/JS) using Claude Code alongside Git/GitHub CI/CD pipelines.</p>
     </section>
 
     <section id="skills" class="gsap-section">
@@ -254,7 +256,7 @@
     </section>
   </div>
 
-  <!-- PINNED HORIZONTAL EXPERIENCE SLIDER -->
+  <!-- PINNED HORIZONTAL EXPERIENCE SLIDER WITH DYNAMIC BACKGROUNDS -->
   <div id="experience" class="experience-pinned-wrapper">
     <div class="slider-title-wrapper">
       <div class="section-tag">// changelog</div>
@@ -262,8 +264,8 @@
     </div>
 
     <div class="experience-slider" id="experienceSlider">
-      <!-- SLIDE 1 -->
-      <div class="experience-slide">
+      <!-- SLIDE 1 (Navy Blue) -->
+      <div class="experience-slide" data-bg="#0d1b2a">
         <div class="slide-tag">BUILD 2026</div>
         <div class="slide-title">Web Development & Accessibility Specialist</div>
         <div class="slide-company">Adfluens LLC · Part-time</div>
@@ -275,8 +277,8 @@
         </ul>
       </div>
 
-      <!-- SLIDE 2 -->
-      <div class="experience-slide">
+      <!-- SLIDE 2 (Dark Teal) -->
+      <div class="experience-slide" data-bg="#0f2027">
         <div class="slide-tag">BUILD 2024–2025</div>
         <div class="slide-title">DevOps Engineer Specialist</div>
         <div class="slide-company">MemberSplash · California, USA · Full-time</div>
@@ -288,8 +290,8 @@
         </ul>
       </div>
 
-      <!-- SLIDE 3 -->
-      <div class="experience-slide">
+      <!-- SLIDE 3 (Deep Purple) -->
+      <div class="experience-slide" data-bg="#1a0933">
         <div class="slide-tag">BUILD 2020–2024</div>
         <div class="slide-title">WordPress Senior Technical Support</div>
         <div class="slide-company">WP Astra · Pune, India · Full-time</div>
@@ -301,8 +303,8 @@
         </ul>
       </div>
 
-      <!-- SLIDE 4 -->
-      <div class="experience-slide">
+      <!-- SLIDE 4 (Dark Emerald) -->
+      <div class="experience-slide" data-bg="#0a251c">
         <div class="slide-tag">BUILD 2019–2020</div>
         <div class="slide-title">WordPress Developer & Technical SEO Specialist</div>
         <div class="slide-company">Serp.co · USA · Full-time</div>
@@ -356,9 +358,12 @@
         });
       });
 
-      // PINNED HORIZONTAL SLIDER (CodePen GSAP Match)
+      // PINNED HORIZONTAL SLIDER WITH SLIDE-BASED BACKGROUND TRANSITIONS
       const slider = document.getElementById("experienceSlider");
+      const slides = gsap.utils.toArray(".experience-slide");
+      const wrapper = document.querySelector(".experience-pinned-wrapper");
 
+      // Horizontal scroll movement
       gsap.to(slider, {
         x: () => -(slider.scrollWidth - window.innerWidth + 40),
         ease: "none",
@@ -370,6 +375,22 @@
           scrub: 1,
           invalidateOnRefresh: true
         }
+      });
+
+      // Background color animation per slide
+      slides.forEach((slide) => {
+        const bgHex = slide.getAttribute("data-bg");
+
+        ScrollTrigger.create({
+          trigger: slide,
+          containerAnimation: gsap.getTweensOf(slider)[0],
+          start: "left center",
+          end: "right center",
+          onEnter: () => gsap.to(wrapper, { backgroundColor: bgHex, duration: 0.6 }),
+          onEnterBack: () => gsap.to(wrapper, { backgroundColor: bgHex, duration: 0.6 }),
+          onLeave: () => gsap.to(wrapper, { backgroundColor: "#0a0c10", duration: 0.6 }),
+          onLeaveBack: () => gsap.to(wrapper, { backgroundColor: "#0a0c10", duration: 0.6 })
+        });
       });
     });
   </script>
