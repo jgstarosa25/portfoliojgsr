@@ -11,6 +11,7 @@
 
   <style>
     :root {
+        --accent: #ff8709; /* Swapped from blue (#3b82f6) to match the line gradient */
       --bg: #0a0c10;
       --card-bg: rgba(18, 21, 30, 0.85);
       --border: #1e2433;
@@ -209,20 +210,23 @@
 <body>
 
   <!-- BACKGROUND MORPHING SVG LINES -->
-  <svg class="shape-overlays" viewBox="0 0 100 100" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#ff8709"/>
-        <stop offset="100%" stop-color="#f7bdf8"/>
-      </linearGradient>
-      <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#ffd9b0"/>
-        <stop offset="100%" stop-color="#ff8709"/>
-      </linearGradient>
-    </defs>
-    <path class="shape-overlays__path" fill="none" stroke="url(#gradient1)" stroke-width="2" vector-effect="non-scaling-stroke"></path>
-    <path class="shape-overlays__path" fill="none" stroke="url(#gradient2)" stroke-width="2" vector-effect="non-scaling-stroke"></path>
-  </svg>
+<svg class="shape-overlays" viewBox="0 0 100 100" preserveAspectRatio="none">
+  <defs>
+    <!-- Primary Orange / Pink Gradient -->
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff8709"/> <!-- Bright Orange -->
+      <stop offset="100%" stop-color="#f7bdf8"/> <!-- Soft Pink -->
+    </linearGradient>
+
+    <!-- Secondary Peach / Orange Gradient -->
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffd9b0"/> <!-- Light Peach -->
+      <stop offset="100%" stop-color="#ff8709"/> <!-- Deep Orange -->
+    </linearGradient>
+  </defs>
+  <path class="shape-overlays__path" fill="none" stroke="url(#gradient1)" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+  <path class="shape-overlays__path" fill="none" stroke="url(#gradient2)" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
 
   <div class="main-wrapper">
     <nav>
