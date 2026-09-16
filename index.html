@@ -33,7 +33,29 @@
       transition: background-color 0.8s ease;
     }
 
-    .main-wrapper { max-width: 850px; margin: 0 auto; padding: 0 20px; }
+    /* SVG Overlay Lines Styling */
+    .shape-overlays {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none; /* Allows scrolling & clicking through to elements below */
+      z-index: 1;
+    }
+
+    .shape-overlays__path {
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .main-wrapper { 
+      position: relative;
+      z-index: 2;
+      max-width: 850px; 
+      margin: 0 auto; 
+      padding: 0 20px; 
+    }
 
     /* Navigation */
     nav {
@@ -118,6 +140,7 @@
     /* HORIZONTAL PINNED EXPERIENCE SLIDER */
     .experience-pinned-wrapper {
       position: relative;
+      z-index: 2;
       width: 100vw;
       height: 100vh;
       overflow: hidden;
@@ -184,6 +207,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body>
+
+  <!-- BACKGROUND MORPHING SVG LINES -->
+  <svg class="shape-overlays" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ff8709"/>
+        <stop offset="100%" stop-color="#f7bdf8"/>
+      </linearGradient>
+      <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ffd9b0"/>
+        <stop offset="100%" stop-color="#ff8709"/>
+      </linearGradient>
+    </defs>
+    <path class="shape-overlays__path" fill="none" stroke="url(#gradient1)" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+    <path class="shape-overlays__path" fill="none" stroke="url(#gradient2)" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+  </svg>
 
   <div class="main-wrapper">
     <nav>
@@ -398,6 +437,52 @@
           invalidateOnRefresh: true
         }
       });
+
+      // 5. Dynamic Background SVG Lines Wave Logic
+      let paths = document.querySelectorAll(".shape-overlays__path");
+      let numPoints = 8;
+      let numPaths = paths.length;
+      let allPoints = [];
+
+      for (let i = 0; i < numPaths; i++) {
+        let points = [];
+        allPoints.push(points);
+        for (let j = 0; j < numPoints; j++) {
+          points.push(50);
+        }
+      }
+
+      function renderLines() {
+        for (let i = 0; i < numPaths; i++) {
+          let path = paths[i];
+          let points = allPoints[i];
+          let d = `M 0 ${points[0]}`;
+          for (let j = 0; j < numPoints - 1; j++) {
+            let p = ((j + 1) / (numPoints - 1)) * 100;
+            let cp = p - ((1 / (numPoints - 1)) * 100) / 2;
+            d += ` C ${cp} ${points[j]}, ${cp} ${points[j + 1]}, ${p} ${points[j + 1]}`;
+          }
+          path.setAttribute("d", d);
+        }
+      }
+
+      // Animate line wave points along with page scrolling
+      for (let i = 0; i < numPaths; i++) {
+        let points = allPoints[i];
+        for (let j = 0; j < numPoints; j++) {
+          gsap.to(points, {
+            [j]: j % 2 === 0 ? 20 + i * 15 : 80 - i * 15,
+            ease: "sine.inOut",
+            scrollTrigger: {
+              trigger: "body",
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 1,
+              onUpdate: renderLines
+            }
+          });
+        }
+      }
     });
   </script>
 </body>
