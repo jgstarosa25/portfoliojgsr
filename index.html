@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jan Gerald Sta. Rosa | Senior WordPress Support Engineer & Systems Specialist</title>
+  <title>Jan Gerald Sta. Rosa | Senior WordPress Support & Systems Specialist</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,14 +23,14 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
+      background-color: var(--bg) !important;
+      color: var(--text) !important;
+      font-family: 'JetBrains Mono', monospace !important;
       line-height: 1.6;
-      padding: 0 20px 40px;
+      overflow-x: hidden;
     }
 
-    .main-wrapper { max-width: 850px; margin: 0 auto; }
+    .main-wrapper { max-width: 850px; margin: 0 auto; padding: 0 20px; }
 
     /* Navigation */
     nav {
@@ -45,7 +45,7 @@
     .brand { font-weight: bold; color: #fff; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
     .brand-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; }
 
-    .nav-links a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
     .nav-links a:hover { color: var(--accent); }
     .btn-resume { border: 1px solid var(--accent); color: var(--accent) !important; padding: 6px 14px; border-radius: 4px; }
 
@@ -101,29 +101,62 @@
     .skill-card h3 { color: var(--accent); font-size: 0.95rem; margin-bottom: 8px; }
     .skill-card p { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
 
-    /* Sections & Timeline */
+    /* Sections */
     section { margin-bottom: 60px; }
     .section-tag { color: var(--accent); font-size: 0.85rem; margin-bottom: 5px; }
     h2 { font-size: 1.5rem; color: #fff; margin-bottom: 20px; }
 
     .summary-text { color: var(--muted); font-size: 0.92rem; margin-bottom: 15px; }
 
-    .timeline-item {
-      border-left: 2px solid var(--border);
-      padding-left: 20px;
-      margin-bottom: 30px;
+    /* PINNED HORIZONTAL EXPERIENCE SLIDER */
+    .experience-pinned-wrapper {
       position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .timeline-tag { color: var(--accent); font-size: 0.8rem; font-weight: bold; }
-    .job-title { color: #fff; font-size: 1.05rem; font-weight: bold; margin: 3px 0; }
-    .job-company { color: var(--muted); font-size: 0.85rem; margin-bottom: 12px; }
+    .slider-title-wrapper {
+      max-width: 850px;
+      margin: 0 auto 30px;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .experience-slider {
+      display: flex;
+      gap: 30px;
+      padding-left: calc((100vw - 850px) / 2 + 20px);
+      width: max-content;
+    }
+
+    @media (max-width: 890px) {
+      .experience-slider { padding-left: 20px; }
+    }
+
+    .experience-slide {
+      width: 550px;
+      max-width: 85vw;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      flex-shrink: 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .slide-tag { color: var(--accent); font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; }
+    .slide-title { color: #fff; font-size: 1.2rem; font-weight: bold; margin-bottom: 4px; }
+    .slide-company { color: var(--muted); font-size: 0.9rem; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
 
     ul { margin-left: 18px; color: var(--muted); font-size: 0.85rem; }
-    li { margin-bottom: 6px; }
+    li { margin-bottom: 8px; }
 
     /* Footer */
-    footer { border-top: 1px solid var(--border); padding-top: 40px; }
+    footer { border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 40px; }
     .contact-links { display: flex; flex-wrap: wrap; gap: 15px; margin: 20px 0; }
     .contact-links a {
       color: var(--accent);
@@ -133,13 +166,11 @@
       padding: 10px 18px;
       border-radius: 6px;
       font-size: 0.85rem;
-      transition: all 0.2s;
     }
-    .contact-links a:hover { border-color: var(--accent); transform: translateY(-2px); }
     .footer-note { color: var(--muted); font-size: 0.75rem; margin-top: 20px; }
   </style>
 
-  <!-- GSAP CDN -->
+  <!-- GSAP Core & ScrollTrigger CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
@@ -196,8 +227,7 @@
       <div class="section-tag">// about</div>
       <h2>Summary</h2>
       <p class="summary-text">Senior WordPress Support Engineer & Infrastructure Specialist with 10+ years managing high-stakes SaaS environments, enterprise plugin ecosystems, web accessibility compliance, and agency infrastructure.</p>
-      <p class="summary-text">I optimize backend performance — Redis caching, MySQL query tuning — to keep platforms stable through high-concurrency seasonal surges, and lead code-level debugging (PHP/JS) using Claude Code alongside Git/GitHub CI/CD pipelines. I also handle ADA/WCAG accessibility remediation (Axe/WAVE) and CRM platform administration (Perfex).</p>
-      <p class="summary-text">Most recently, I've driven support desk operations to under 30 minutes first-response time while lifting CSAT by 10%, across VIP escalation queues on a 2M+ install product base.</p>
+      <p class="summary-text">I optimize backend performance — Redis caching, MySQL query tuning — to keep platforms stable through high-concurrency seasonal surges, and lead code-level debugging (PHP/JS) using Claude Code alongside Git/GitHub CI/CD pipelines.</p>
     </section>
 
     <section id="skills" class="gsap-section">
@@ -217,28 +247,26 @@
           <p>AI-assisted debugging, root-cause code analysis, and automated patch creation using Claude Code.</p>
         </div>
         <div class="card skill-card gsap-skill">
-          <h3>Version Control & DevOps</h3>
-          <p>Git, GitHub issue tracking, staging-to-production deployment pipelines, CI/CD workflows, environment sync.</p>
-        </div>
-        <div class="card skill-card gsap-skill">
-          <h3>Accessibility & Compliance</h3>
-          <p>ADA/WCAG compliance via Axe & WAVE audits, Screaming Frog SEO crawls, Core Web Vitals, schema markup.</p>
-        </div>
-        <div class="card skill-card gsap-skill">
-          <h3>Ecosystem Specialization</h3>
-          <p>Astra Theme, WooCommerce, Elementor, Spectra, MemberSplash SaaS, payment gateways.</p>
+          <h3>DevOps & Version Control</h3>
+          <p>Git, GitHub issue tracking, staging-to-production deployment pipelines, CI/CD workflows.</p>
         </div>
       </div>
     </section>
+  </div>
 
-    <section id="experience" class="gsap-section">
+  <!-- PINNED HORIZONTAL EXPERIENCE SLIDER -->
+  <div id="experience" class="experience-pinned-wrapper">
+    <div class="slider-title-wrapper">
       <div class="section-tag">// changelog</div>
-      <h2>Professional Experience</h2>
+      <h2>Professional Experience (Scroll Down)</h2>
+    </div>
 
-      <div class="timeline-item gsap-timeline">
-        <span class="timeline-tag">BUILD 2026</span>
-        <div class="job-title">Web Development & Accessibility Specialist</div>
-        <div class="job-company">Adfluens LLC · Part-time</div>
+    <div class="experience-slider" id="experienceSlider">
+      <!-- SLIDE 1 -->
+      <div class="experience-slide">
+        <div class="slide-tag">BUILD 2026</div>
+        <div class="slide-title">Web Development & Accessibility Specialist</div>
+        <div class="slide-company">Adfluens LLC · Part-time</div>
         <ul>
           <li>ADA/WCAG accessibility audits using Axe and WAVE; refactored PHP, HTML, and CSS for compliance</li>
           <li>Managed and customized Perfex CRM for client onboarding and task automation</li>
@@ -247,10 +275,11 @@
         </ul>
       </div>
 
-      <div class="timeline-item gsap-timeline">
-        <span class="timeline-tag">BUILD 2024–2025</span>
-        <div class="job-title">DevOps Engineer Specialist</div>
-        <div class="job-company">MemberSplash · California, USA · Full-time</div>
+      <!-- SLIDE 2 -->
+      <div class="experience-slide">
+        <div class="slide-tag">BUILD 2024–2025</div>
+        <div class="slide-title">DevOps Engineer Specialist</div>
+        <div class="slide-company">MemberSplash · California, USA · Full-time</div>
         <ul>
           <li>Resolved Tier 2/3 tickets for custom membership software and POS check-in gate systems</li>
           <li>Optimized MySQL queries, PHP memory limits, and caching to hold uptime during registration surges</li>
@@ -259,312 +288,42 @@
         </ul>
       </div>
 
-      <div class="timeline-item gsap-timeline">
-        <span class="timeline-tag">BUILD 2020–2024</span>
-        <div class="job-title">WordPress Senior Technical Support</div>
-        <div class="job-company">WP Astra · Pune, India · Full-time</div>
+      <!-- SLIDE 3 -->
+      <div class="experience-slide">
+        <div class="slide-tag">BUILD 2020–2024</div>
+        <div class="slide-title">WordPress Senior Technical Support</div>
+        <div class="slide-company">WP Astra · Pune, India · Full-time</div>
         <ul>
           <li>Cut first response time to under 30 minutes while lifting CSAT by 10% across high-volume queues</li>
           <li>Managed VIP escalations via Help Scout and Zendesk with fast resolution on critical site breaks</li>
-          <li>Isolated theme/plugin conflicts through code-level debugging, using Claude Code to generate and test patches</li>
+          <li>Isolated theme/plugin conflicts through code-level debugging, using Claude Code to test patches</li>
           <li>Reproduced complex bugs in staging and filed structured root-cause reports on GitHub</li>
         </ul>
       </div>
-    </section>
 
-    <footer id="contact" class="gsap-section">
-      <div class="section-tag">// contact</div>
-      <h2>Get in touch</h2>
-      <p class="summary-text">Open to remote WordPress systems, support engineering, and technical operations roles.</p>
-      <div class="contact-links">
-        <a href="mailto:Geraldstarosa29@gmail.com">Geraldstarosa29@gmail.com</a>
-        <a href="tel:09195015396">09195015396</a>
-        <a href="https://ph.linkedin.com/in/jan-gerald-starosa-60ba56183" target="_blank" rel="noopener">LinkedIn</a>
-        <a download href="./resume.pdf">Download Resume</a>
+      <!-- SLIDE 4 -->
+      <div class="experience-slide">
+        <div class="slide-tag">BUILD 2019–2020</div>
+        <div class="slide-title">WordPress Developer & Technical SEO Specialist</div>
+        <div class="slide-company">Serp.co · USA · Full-time</div>
+        <ul>
+          <li>Built and maintained custom, responsive WordPress sites aligned to lead-generation goals</li>
+          <li>Executed schema/structured data, canonicalization, and Core Web Vitals improvements</li>
+          <li>Optimized geographic service pages to support Google Business Profile map-pack visibility</li>
+          <li>Built high-speed, mobile-optimized landing pages integrated with Google Ads to cut CPL</li>
+        </ul>
       </div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jan Gerald Sta. Rosa | Senior WordPress Support Engineer & Systems Specialist</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #0a0c10;
-      --card-bg: #12151e;
-      --border: #1e2433;
-      --accent: #3b82f6;
-      --text: #e2e8f0;
-      --muted: #8892b0;
-      --green: #10b981;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
-      line-height: 1.6;
-      padding: 0 20px 40px;
-    }
-
-    .main-wrapper { max-width: 850px; margin: 0 auto; }
-
-    /* Navigation */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 25px 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 50px;
-    }
-
-    .brand { font-weight: bold; color: #fff; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
-    .brand-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; }
-
-    .nav-links a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--accent); }
-    .btn-resume { border: 1px solid var(--accent); color: var(--accent) !important; padding: 6px 14px; border-radius: 4px; }
-
-    /* Hero */
-    header { margin-bottom: 60px; }
-    .badge { color: var(--green); font-size: 0.85rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-    .badge-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
-
-    h1 { font-size: 2.5rem; color: #fff; margin-bottom: 15px; letter-spacing: -0.5px; }
-    .hero-sub { color: var(--muted); font-size: 1.05rem; margin-bottom: 30px; }
-
-    /* Terminal Box */
-    .terminal-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 35px;
-    }
-
-    .terminal-header {
-      background: #0d1017;
-      padding: 10px 15px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-    .red { background: #ef4444; } .yellow { background: #f59e0b; } .green { background: #10b981; }
-    .terminal-title { color: var(--muted); font-size: 0.75rem; margin-left: 10px; }
-    .terminal-body { padding: 15px 20px; color: var(--accent); font-size: 0.85rem; }
-
-    /* Stats & Grid */
-    .stats-grid, .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 15px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    .stat-number { font-size: 1.5rem; font-weight: bold; color: #fff; }
-    .stat-label { color: var(--muted); font-size: 0.8rem; margin-top: 5px; }
-
-    .skills-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-    .skill-card h3 { color: var(--accent); font-size: 0.95rem; margin-bottom: 8px; }
-    .skill-card p { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
-
-    /* Sections & Timeline */
-    section { margin-bottom: 60px; }
-    .section-tag { color: var(--accent); font-size: 0.85rem; margin-bottom: 5px; }
-    h2 { font-size: 1.5rem; color: #fff; margin-bottom: 20px; }
-
-    .summary-text { color: var(--muted); font-size: 0.92rem; margin-bottom: 15px; }
-
-    .timeline-item {
-      border-left: 2px solid var(--border);
-      padding-left: 20px;
-      margin-bottom: 30px;
-      position: relative;
-    }
-
-    .timeline-tag { color: var(--accent); font-size: 0.8rem; font-weight: bold; }
-    .job-title { color: #fff; font-size: 1.05rem; font-weight: bold; margin: 3px 0; }
-    .job-company { color: var(--muted); font-size: 0.85rem; margin-bottom: 12px; }
-
-    ul { margin-left: 18px; color: var(--muted); font-size: 0.85rem; }
-    li { margin-bottom: 6px; }
-
-    /* Footer */
-    footer { border-top: 1px solid var(--border); padding-top: 40px; }
-    .contact-links { display: flex; flex-wrap: wrap; gap: 15px; margin: 20px 0; }
-    .contact-links a {
-      color: var(--accent);
-      text-decoration: none;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      transition: all 0.2s;
-    }
-    .contact-links a:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .footer-note { color: var(--muted); font-size: 0.75rem; margin-top: 20px; }
-  </style>
-
-  <!-- GSAP CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-</head>
-<body>
+    </div>
+  </div>
 
   <div class="main-wrapper">
-    <nav class="gsap-nav">
-      <div class="brand"><span class="brand-dot"></span>jgsr.dev</div>
-      <div class="nav-links">
-        <a href="#about">about</a>
-        <a href="#skills">skills</a>
-        <a href="#experience">experience</a>
-        <a href="#contact">contact</a>
-        <a download href="./resume.pdf" class="btn-resume">Resume ↓</a>
-      </div>
-    </nav>
-
-    <header>
-      <div class="badge gsap-hero"><span class="badge-dot"></span>Available for remote roles</div>
-      <h1 class="gsap-hero">Jan Gerald Sta. Rosa</h1>
-      <p class="hero-sub gsap-hero">Senior WordPress Support Engineer & Systems Specialist — keeping high-stakes WordPress platforms fast, secure, and online.</p>
-
-      <div class="terminal-box gsap-hero">
-        <div class="terminal-header">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="terminal-title">jgsr@systems — intro.sh</span>
-        </div>
-        <div class="terminal-body">
-          <p>$ init --role="Systems & DevOps Specialist" --status="READY"</p>
-        </div>
-      </div>
-
-      <div class="stats-grid gsap-hero">
-        <div class="card">
-          <div class="stat-number">10+ Years</div>
-          <div class="stat-label">Systems & Support Exp.</div>
-        </div>
-        <div class="card">
-          <div class="stat-number">&lt; 30m</div>
-          <div class="stat-label">First Response Time</div>
-        </div>
-        <div class="card">
-          <div class="stat-number">+10%</div>
-          <div class="stat-label">CSAT Improvement</div>
-        </div>
-        <div class="card">
-          <div class="stat-number">2M+</div>
-          <div class="stat-label">Installs Supported</div>
-        </div>
-      </div>
-    </header>
-
-    <section id="about" class="gsap-section">
-      <div class="section-tag">// about</div>
-      <h2>Summary</h2>
-      <p class="summary-text">Senior WordPress Support Engineer & Infrastructure Specialist with 10+ years managing high-stakes SaaS environments, enterprise plugin ecosystems, web accessibility compliance, and agency infrastructure.</p>
-      <p class="summary-text">I optimize backend performance — Redis caching, MySQL query tuning — to keep platforms stable through high-concurrency seasonal surges, and lead code-level debugging (PHP/JS) using Claude Code alongside Git/GitHub CI/CD pipelines. I also handle ADA/WCAG accessibility remediation (Axe/WAVE) and CRM platform administration (Perfex).</p>
-      <p class="summary-text">Most recently, I've driven support desk operations to under 30 minutes first-response time while lifting CSAT by 10%, across VIP escalation queues on a 2M+ install product base.</p>
-    </section>
-
-    <section id="skills" class="gsap-section">
-      <div class="section-tag">// system modules</div>
-      <h2>Core Technical Skills</h2>
-      <div class="skills-grid">
-        <div class="card skill-card gsap-skill">
-          <h3>Backend & Code Debugging</h3>
-          <p>PHP, JavaScript (ES6+), HTML5, CSS3, SQL (MySQL), REST APIs, WordPress Hooks/Actions/Filters.</p>
-        </div>
-        <div class="card skill-card gsap-skill">
-          <h3>Performance & Infrastructure</h3>
-          <p>MySQL query optimization, Redis/Memcached object caching, PHP execution limits, server tuning, Core Web Vitals.</p>
-        </div>
-        <div class="card skill-card gsap-skill">
-          <h3>AI-Assisted Workflows</h3>
-          <p>AI-assisted debugging, root-cause code analysis, and automated patch creation using Claude Code.</p>
-        </div>
-        <div class="card skill-card gsap-skill">
-          <h3>Version Control & DevOps</h3>
-          <p>Git, GitHub issue tracking, staging-to-production deployment pipelines, CI/CD workflows, environment sync.</p>
-        </div>
-        <div class="card skill-card gsap-skill">
-          <h3>Accessibility & Compliance</h3>
-          <p>ADA/WCAG compliance via Axe & WAVE audits, Screaming Frog SEO crawls, Core Web Vitals, schema markup.</p>
-        </div>
-        <div class="card skill-card gsap-skill">
-          <h3>Ecosystem Specialization</h3>
-          <p>Astra Theme, WooCommerce, Elementor, Spectra, MemberSplash SaaS, payment gateways.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" class="gsap-section">
-      <div class="section-tag">// changelog</div>
-      <h2>Professional Experience</h2>
-
-      <div class="timeline-item gsap-timeline">
-        <span class="timeline-tag">BUILD 2026</span>
-        <div class="job-title">Web Development & Accessibility Specialist</div>
-        <div class="job-company">Adfluens LLC · Part-time</div>
-        <ul>
-          <li>ADA/WCAG accessibility audits using Axe and WAVE; refactored PHP, HTML, and CSS for compliance</li>
-          <li>Managed and customized Perfex CRM for client onboarding and task automation</li>
-          <li>Built and maintained WordPress sites using Elementor and Beaver Builder with custom PHP snippets</li>
-          <li>Implemented AI automation workflows; ran full-site technical SEO audits with Screaming Frog</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item gsap-timeline">
-        <span class="timeline-tag">BUILD 2024–2025</span>
-        <div class="job-title">DevOps Engineer Specialist</div>
-        <div class="job-company">MemberSplash · California, USA · Full-time</div>
-        <ul>
-          <li>Resolved Tier 2/3 tickets for custom membership software and POS check-in gate systems</li>
-          <li>Optimized MySQL queries, PHP memory limits, and caching to hold uptime during registration surges</li>
-          <li>Diagnosed and patched PHP, database, and payment gateway integration bugs</li>
-          <li>Ran staging-to-production deployments via Git/CI-CD, minimizing downtime on releases</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item gsap-timeline">
-        <span class="timeline-tag">BUILD 2020–2024</span>
-        <div class="job-title">WordPress Senior Technical Support</div>
-        <div class="job-company">WP Astra · Pune, India · Full-time</div>
-        <ul>
-          <li>Cut first response time to under 30 minutes while lifting CSAT by 10% across high-volume queues</li>
-          <li>Managed VIP escalations via Help Scout and Zendesk with fast resolution on critical site breaks</li>
-          <li>Isolated theme/plugin conflicts through code-level debugging, using Claude Code to generate and test patches</li>
-          <li>Reproduced complex bugs in staging and filed structured root-cause reports on GitHub</li>
-        </ul>
-      </div>
-    </section>
-
     <footer id="contact" class="gsap-section">
       <div class="section-tag">// contact</div>
       <h2>Get in touch</h2>
       <p class="summary-text">Open to remote WordPress systems, support engineering, and technical operations roles.</p>
       <div class="contact-links">
         <a href="mailto:Geraldstarosa29@gmail.com">Geraldstarosa29@gmail.com</a>
-        <a href="tel:09195015396">09195015396</a>
-        <a href="https://ph.linkedin.com/in/jan-gerald-starosa-60ba56183" target="_blank" rel="noopener">LinkedIn</a>
-        <a download href="./resume.pdf">Download Resume</a>
+        <a href="https://ph.linkedin.com/in/jan-gerald-starosa-60ba56183" target="_blank">LinkedIn</a>
       </div>
       <p class="footer-note">Built with plain HTML/CSS/JS + GSAP. Last updated September 2026.</p>
     </footer>
@@ -574,7 +333,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Hero Animation
+      // Hero Entrance
       gsap.from(".gsap-hero", {
         y: 30,
         opacity: 0,
@@ -583,7 +342,7 @@
         ease: "power2.out"
       });
 
-      // Section Fade-In on Scroll
+      // Section Fade
       gsap.utils.toArray(".gsap-section").forEach((section) => {
         gsap.from(section, {
           scrollTrigger: {
@@ -597,63 +356,20 @@
         });
       });
 
-      // Skill Cards Cascade
-      gsap.from(".gsap-skill", {
+      // PINNED HORIZONTAL SLIDER (CodePen GSAP Match)
+      const slider = document.getElementById("experienceSlider");
+
+      gsap.to(slider, {
+        x: () => -(slider.scrollWidth - window.innerWidth + 40),
+        ease: "none",
         scrollTrigger: {
-          trigger: "#skills",
-          start: "top 75%"
-        },
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.08,
-        ease: "power2.out"
-      });
-    });
-  </script>
-</body>
-</html>
-    </footer>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Hero Animation
-      gsap.from(".gsap-hero", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: "power2.out"
-      });
-
-      // Section Fade-In on Scroll
-      gsap.utils.toArray(".gsap-section").forEach((section) => {
-        gsap.from(section, {
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%"
-          },
-          y: 30,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power2.out"
-        });
-      });
-
-      // Skill Cards Cascade
-      gsap.from(".gsap-skill", {
-        scrollTrigger: {
-          trigger: "#skills",
-          start: "top 75%"
-        },
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.08,
-        ease: "power2.out"
+          trigger: "#experience",
+          start: "top top",
+          end: () => "+=" + slider.scrollWidth,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
       });
     });
   </script>
